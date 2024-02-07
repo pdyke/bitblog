@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bitblog
+spec:
+  selector:
+    matchLabels:
+      app: bitblog
+  template:
+    metadata:
+      labels:
+        app: bitblog
+    spec:
+      containers:
+      - name: bitblog
+        image: theoafactor/bitblog:123
+        ports:
+        - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bitblog
+spec:
+  type: LoadBalancer
+  selector:
+    app: bitblog
+  ports:
+  - port: 800
+    targetPort: 80
